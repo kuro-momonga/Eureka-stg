@@ -93,6 +93,27 @@ function undo(){
 undoBtn.onclick = undo;
 undoBtn.disabled = true;        // 初期は押せない
 
+
+
+
+
+
+
+/* ---------- 初期値をセット ---------- */
+function initFirstFood(){
+  const mame = FOODS.find(f => f.name === "マメミート");
+  setFood(0, mame, true);     // manual=true → ✎ を付ける
+}
+initFirstFood();              // ページ読み込み直後に 1 回呼び出し
+
+
+
+
+
+
+
+
+
 /* ========== helpers ========== */
 const showToast = msg=>{
   toast.textContent=msg;toast.classList.add("show");
@@ -222,6 +243,14 @@ document.getElementById("reset-btn").onclick=()=>{
   lastState = null;            /* undo をクリア */
   undoBtn.disabled = true;
   seedCount=0; seedCountEl.value=0;
+
+document.getElementById("reset-btn").onclick = () => {
+  /* 各種クリア処理 … */
+
+  initFirstFood();      // ★ リセット後にマメミート ✎ を再セット
+};
+
+  
 };
 
 /* ========== share (変更なし) ========== */
