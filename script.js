@@ -83,7 +83,8 @@ function undo(){
 
   /* サブスキルを復元 */
   lastState.skillNames.forEach((txt,i)=>{
-    setSkill(i,txt,lastState.skillMan[i]);
+ const plain = clean(txt);                       // まず✎を取り除く
+    setSkill(i, plain, lastState.skillMan[i]);      // cleanした名前を渡す
   });
 
   /* 1 回限り */
