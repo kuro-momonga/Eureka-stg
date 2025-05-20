@@ -233,22 +233,24 @@ closeModalBtn.onclick=()=>modal.classList.remove("show");
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("show"); });
 
 /* ========== reset ========== */
-document.getElementById("reset-btn").onclick=()=>{
-  foodImgs.forEach(i=>{i.src="";i.dataset.name="";});
-  foodNames.forEach(p=>p.textContent="");
-  skillSpans.forEach(s=>s.textContent="");
-  skillSlots.forEach(sl=>sl.classList.remove("yellow","blue"));
+document.getElementById("reset-btn").onclick = () => {
+
+  /* --- クリア処理 --- */
+  foodImgs.forEach(i => { i.src = ""; i.dataset.name = ""; });
+  foodNames.forEach(p => p.textContent = "");
+  skillSpans.forEach(s => s.textContent = "");
+  skillSlots.forEach(sl => sl.classList.remove("yellow","blue"));
   foodManual.fill(false);
   skillManual.fill(false);
-  lastState = null;            /* undo をクリア */
+  lastState = null;            // undo をクリア
   undoBtn.disabled = true;
-  seedCount=0; seedCountEl.value=0;
+  seedCount = 0;
+  seedCountEl.value = 0;
 
-document.getElementById("reset-btn").onclick = () => {
-  /* 各種クリア処理 … */
-
-  initFirstFood();      // ★ リセット後にマメミート ✎ を再セット
+  /* --- 最後にマメミート ✎ をセット --- */
+  initFirstFood();
 };
+
 
   
 };
