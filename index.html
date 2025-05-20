@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               minimum-scale=1,
+               maximum-scale=1,
+               user-scalable=no">
+
+  <title>ひらめきのたねシミュレーター（ダークライ）</title>
+
+  <!-- M PLUS 1p heavy -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>ひらめきのたねシミュレーター<br><span class="sub">（ダークライ）</span></h1>
+
+    <!-- 食材 -->
+    <section class="section-block">
+      <div class="section-title">
+        <h2>食材</h2>
+<button class="section-edit" data-type="food">個別編集 ✎</button>
+
+      </div>
+
+      <div class="food-slot-row">
+        <div class="food-slot" data-idx="0"><div class="inner"><img><p></p></div><button class="roll-btn" data-type="food" data-idx="0"></button></div>
+        <div class="food-slot" data-idx="1"><div class="inner"><img><p></p></div><button class="roll-btn" data-type="food" data-idx="1"></button></div>
+        <div class="food-slot" data-idx="2"><div class="inner"><img><p></p></div><button class="roll-btn" data-type="food" data-idx="2"></button></div>
+      </div>
+    </section>
+
+    <!-- サブスキル -->
+    <section class="section-block">
+      <div class="section-title">
+        <h2>サブスキル</h2>
+   <button class="section-edit" data-type="skill">個別編集 ✎</button>
+
+      </div>
+
+      <div class="skill-grid">
+        <div class="num-box">10</div><div class="skill-slot" data-idx="0"><span></span><button class="roll-btn" data-type="skill" data-idx="0"></button></div>
+        <div class="num-box">25</div><div class="skill-slot" data-idx="1"><span></span><button class="roll-btn" data-type="skill" data-idx="1"></button></div>
+        <div class="num-box">50</div><div class="skill-slot" data-idx="2"><span></span><button class="roll-btn" data-type="skill" data-idx="2"></button></div>
+        <div class="num-box">75</div><div class="skill-slot" data-idx="3"><span></span><button class="roll-btn" data-type="skill" data-idx="3"></button></div>
+        <div class="num-box">100</div><div class="skill-slot" data-idx="4"><span></span><button class="roll-btn" data-type="skill" data-idx="4"></button></div>
+      </div>
+    </section>
+
+    <!-- カウンタ -->
+    <section class="counter-section">
+      <label>ひらめきのたね使用回数</label>
+      <input id="seed-count" value="0" readonly>
+    </section>
+
+    <!-- 操作 -->
+    <div class="btn-row">
+      <button id="reset-btn" class="sec">リセット</button>
+      <button id="share-btn" class="pri">シェア</button>
+    </div>
+  </main>
+
+  <!-- モーダル -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div id="slot-tabs" class="slot-tabs"></div>
+      <div id="option-grid" class="option-grid"></div>
+      <button id="close-modal" class="sec wide">キャンセル</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+<!-- 既存 <script src="script.js"></script> の **上** に追加 -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
