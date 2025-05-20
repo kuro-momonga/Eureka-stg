@@ -1,0 +1,144 @@
+/* === base === */
+html{font-size:92%}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"M PLUS 1p",sans-serif}
+body{background:#fffaf0;color:#000}
+.container{max-width:480px;margin:0 auto;padding:0.6rem}
+h1{font-size:1.2rem;text-align:center;line-height:1.3}
+h1 .sub{display:block;font-size:0.95rem;margin-top:0.12rem}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:0.85rem 0 0.32rem}
+h2{font-size:1.04rem}
+
+.section-title .section-edit{margin-left:auto;}  /* 右端に押し出す */
+
+/* --- 個別編集ボタン（角丸・水色） --- */
+.section-edit{
+  border:none;
+  background:#d7e1ff;        /* 水色 */
+  color:#000;
+  padding:0.35rem 0.75rem;
+  border-radius:7px;
+  font-size:0.9rem;
+  display:inline-flex;
+  align-items:center;
+  gap:0.25rem;               /* テキストと✎の間 */
+  cursor:pointer;
+  line-height:1;
+    flex:0 0 auto;     /* 幅はコンテンツ依存 & 伸び縮みしない */
+}
+.section-edit:active{transform:scale(0.96);}
+
+
+/* food slots */
+.food-slot-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.28rem}
+.food-slot{position:relative;border:1.5px solid #444;border-radius:6px;height:86px;background:#fff}
+.food-slot .inner{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.food-slot img{max-width:66%;max-height:54%}
+.food-slot p{font-size:0.66rem;margin-top:2px;white-space:nowrap}
+
+/* roll button */
+.roll-btn{
+  position:absolute;right:2px;bottom:2px;
+  width:38px;height:38px;border-radius:50%;
+  border:1.5px solid #6d9cff;background:#fff url("img/seed_icon.png") center/74% no-repeat;
+  cursor:pointer;padding:0;
+}
+.roll-btn:active{transform:scale(0.88)}
+
+/* skill grid */
+.skill-grid{display:grid;grid-template-columns:62px 1fr;gap:0.24rem 0.28rem}
+.num-box{
+  background:#d9e1ff;border:1.5px solid #444;border-radius:6px;
+  height:48px;display:flex;align-items:center;justify-content:center;
+  font-weight:bold;font-size:0.9rem
+}
+.skill-slot{
+  position:relative;border:1.5px solid #000;border-radius:6px;
+  height:48px;display:flex;align-items:center;padding-left:6px;
+  background:#fff;
+}
+.skill-slot span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:42px;font-size:0.9rem}
+.skill-slot.yellow{background:#fff6b2}
+.skill-slot.blue  {background:#cfe1ff}
+
+/* counter & main buttons */
+.counter-section{margin-top:0.8rem}
+.counter-section input{width:100%;padding:0.35rem;font-size:0.94rem;text-align:center;border:1.5px solid #444;border-radius:4px;background:#fff}
+.btn-row{margin-top:0.9rem;display:flex;gap:0.6rem}
+button{flex:1;padding:0.48rem 0;border:none;border-radius:7px;font-size:0.95rem;cursor:pointer}
+button.pri{background:#6d9cff;color:#fff}
+button.sec{background:#e0e0e0}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:900}
+.modal.show{display:flex}
+.modal-content{background:#fff;width:92%;max-width:400px;border-radius:10px;padding:1rem;text-align:center}
+.slot-tabs{display:flex;gap:0.45rem;justify-content:center;flex-wrap:wrap}
+.slot-tab-btn{padding:0.34rem 0.6rem;border:1px solid #888;border-radius:5px;background:#f0f0f0;font-size:0.85rem;cursor:pointer}
+.slot-tab-btn.active{background:#9bb6ff;color:#fff;border-color:#6d9cff}
+.option-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem;margin-top:0.75rem;max-height:320px;overflow-y:auto}
+.option-btn{padding:0.53rem 0.2rem;border:1px solid #999;border-radius:6px;font-size:0.88rem;background:#f4f4f4;cursor:pointer}
+.option-btn.yellow{background:#fff6b2}
+.option-btn.blue {background:#cfe1ff}
+.option-btn:disabled{opacity:0.35;cursor:not-allowed}
+
+/* toast */
+#toast{position:fixed;bottom:-100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.82);color:#fff;padding:0.54rem 0.95rem;border-radius:20px;font-size:0.9rem;transition:bottom 0.3s;z-index:999}
+#toast.show{bottom:78px}
+
+/* --- サブスキル ↻ を縦センター & 右寄せ --- */
+.skill-slot .roll-btn{
+  right:2px;                 /* 横位置はそのまま右端 */
+  top:50%;                   /* 高さ中央 */
+  transform:translateY(-50%);
+}
+
+
+
+
+
+
+
+
+/* ① ─ タイトル下に余白 */
+h1 .sub{
+  display:block;
+  font-size:0.95rem;
+  margin:0.12rem 0 3rem;   /* ← 下に 1 行分 (約 3rem) の余白 */
+}
+
+/* ② + ③ ─ 食材名を上・サイズアップ、画像も少し拡大 */
+.food-slot .inner{
+  flex-direction:column-reverse;   /* テキスト → 画像 の順に表示 */
+}
+
+.food-slot p{
+  font-size:0.8rem;                /* 文字を大きく */
+  margin:0 0 2px;                  /* 下余白のみ少し */
+}
+
+.food-slot img{
+  max-width:74%;                   /* 画像を拡大（66% → 74%） */
+  max-height:58%;
+}
+
+
+html, body, button, a, input {
+  touch-action: manipulation;   /* ダブルタップ拡大を禁止 */
+}
+
+/* ① ─ 抽選 ↻ ボタン：当たり判定を +8px 四方広げる  */
+.roll-btn::before{
+  content:"";
+  position:absolute;
+  inset:-4px;          /* 四方向に 4px 拡張（合計 +8px）*/
+  border-radius:50%;
+  /* 透過にすると見た目は変わらずヒットエリアだけ拡大 */
+}
+
+/* ② ─ モーダルの「キャンセル」ボタンを下げ、幅を内容にフィット */
+#close-modal{
+  margin-top:1.2rem;   /* 旧 0.7rem → 少し下へ */
+  display:inline-block;/* 内容幅で自動フィット */
+  padding:0.48rem 1.2rem;
+}
+
