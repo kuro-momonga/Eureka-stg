@@ -43,6 +43,8 @@ const foodNames  = [...document.querySelectorAll(".food-slot p")];
 const skillSpans = [...document.querySelectorAll(".skill-slot span")];
 const skillSlots = [...document.querySelectorAll(".skill-slot")];
 
+const undoBtn    = document.getElementById("undo-btn");   /* ⟲ 1つ戻す */
+
 /* 手動選択フラグ */
 const foodManual  = [false,false,false];
 const skillManual = [false,false,false,false,false];
@@ -50,6 +52,46 @@ const skillManual = [false,false,false,false,false];
 let seedCount = 0;
 let editType  = "food";
 let currentIdx= 0;
+
+/* ========== undo（1 手だけ保持） ========== */
+let lastState = null;
+
+function saveState(){          // 抽選直前に呼び出す
+  lastState = {
+    foodNames : foodNames.map(p => p.textContent),
+    foodSrcs  : foodImgs .map(img => img.src),
+    skillNames: skillSpans.map(s => s.textContent),
+    foodMan   : [...foodManual],
+    skillMan  : [...skillManual]
+  };
+  undoBtn.disabled = false;
+}
+
+function undo(){
+  if(!lastState) return;
+
+  /* 食材を復元 */
+  lastState.foodNames.forEach((txt,i)=>{
+    if(txt){
+      const plain = txt.replace(/\s*✎$/,"");
+      const obj   = FOODS.find(f=>f.name===plain);
+      setFood(i,obj,lastState.foodMan[i]);
+    }else{
+      setFood(i,{img:"",name:""},false);
+    }
+  });
+
+  /* サブスキルを復元 */
+  lastState.skillNames.forEach((txt,i)=>{
+    setSkill(i,txt,lastState.skillMan[i]);
+  });
+
+  /* 1 回限り */
+  lastState = null;
+  undoBtn.disabled = true;
+}
+undoBtn.onclick = undo;
+undoBtn.disabled = true;        // 初期は押せない
 
 /* ========== helpers ========== */
 const showToast = msg=>{
@@ -84,6 +126,8 @@ function setSkill(idx,name,manual){
 /* ========== roll buttons ========== */
 document.querySelectorAll(".roll-btn").forEach(btn=>{
   btn.addEventListener("click",()=>{
+    saveState();               /* ★ 抽選直前に状態を保存 */
+
     const type=btn.dataset.type,idx=+btn.dataset.idx;
 
     if(type==="food"){
@@ -99,7 +143,7 @@ document.querySelectorAll(".roll-btn").forEach(btn=>{
       );
       used.delete( clean(skillSpans[idx].textContent) );  // 自スロットは除外
 
-      const next = randExcept(SKILLS, used);              // “なし” を候補に入れない
+      const next = randExcept(SKILLS, used);              // “なし” は除外
       setSkill(idx,next,false);
     }
     incSeed();
@@ -175,12 +219,13 @@ document.getElementById("reset-btn").onclick=()=>{
   skillSlots.forEach(sl=>sl.classList.remove("yellow","blue"));
   foodManual.fill(false);
   skillManual.fill(false);
+  lastState = null;            /* undo をクリア */
+  undoBtn.disabled = true;
   seedCount=0; seedCountEl.value=0;
 };
 
 /* ========== share (変更なし) ========== */
-/* ここ以降はあなたのファイルの share 関数と iOS ズーム対策をそのまま残してください */
-
+/* ---- ここ以降は元の share 関数とズーム対策を維持 ---- */
 
 /* ========== share ========== */
 document.getElementById("share-btn").onclick = async () => {
