@@ -141,8 +141,8 @@ document.querySelectorAll(".roll-btn").forEach(btn=>{
       const used = new Set(
         skillSpans.map(s=>clean(s.textContent)).filter(Boolean)
       );
-      used.delete( clean(skillSpans[idx].textContent) );  // 自スロットは除外
-
+     const prev = clean(skillSpans[idx].textContent);     // 現在値
+      
       const next = randExcept(SKILLS, used);              // “なし” は除外
       setSkill(idx,next,false);
     }
