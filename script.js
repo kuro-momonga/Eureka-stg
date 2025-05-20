@@ -252,9 +252,6 @@ document.getElementById("reset-btn").onclick = () => {
 };
 
 
-  
-};
-
 /* ========== share (変更なし) ========== */
 /* ---- ここ以降は元の share 関数とズーム対策を維持 ---- */
 
